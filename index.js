@@ -1,10 +1,7 @@
-// Initialize AOS Animations
-AOS.init({
-    duration: 1000,
-    once: true,
-});
+// Initialize Animations
+AOS.init({ duration: 800, once: true });
 
-// Mobile Menu Toggle
+// Mobile Hamburger Menu
 const hamburger = document.getElementById('hamburger');
 const navLinks = document.getElementById('nav-links');
 
@@ -12,35 +9,25 @@ hamburger.addEventListener('click', () => {
     navLinks.classList.toggle('active');
 });
 
-// Close mobile menu on link click
+// Close menu on click
 document.querySelectorAll('.nav-links a').forEach(link => {
-    link.addEventListener('click', () => {
-        navLinks.classList.remove('active');
-    });
+    link.addEventListener('click', () => navLinks.classList.remove('active'));
 });
 
-// Simple Testimonial Carousel Logic
-let currentSlide = 0;
+// Testimonial Carousel
+let slideIndex = 0;
 const slides = document.querySelectorAll('.carousel-item');
 
-function showSlide(index) {
-    slides.forEach((slide, i) => {
-        slide.classList.remove('active');
-        if (i === index) slide.classList.add('active');
-    });
+function rotateSlides() {
+    slides.forEach(s => s.classList.remove('active'));
+    slideIndex = (slideIndex + 1) % slides.length;
+    slides[slideIndex].classList.add('active');
 }
+setInterval(rotateSlides, 4000);
 
-setInterval(() => {
-    currentSlide = (currentSlide + 1) % slides.length;
-    showSlide(currentSlide);
-}, 5000);
-
-// Dynamic Navbar background change on scroll
-window.addEventListener('scroll', () => {
-    const navbar = document.querySelector('.navbar');
-    if (window.scrollY > 50) {
-        navbar.style.boxShadow = '0 5px 20px rgba(0,0,0,0.5)';
-    } else {
-        navbar.style.boxShadow = 'none';
-    }
-});
+// Navbar Scroll Effect
+window.onscroll = () => {
+    const nav = document.querySelector('.navbar');
+    if (window.scrollY > 100) nav.style.background = "#0b132b";
+    else nav.style.background = "rgba(11, 19, 43, 0.95)";
+};
